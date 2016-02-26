@@ -1,0 +1,5 @@
+<h1>Toy Show Page</h1>
+<%= @toy.name %>
+<%= image_tag @toy.image.url(:medium) %>
+<%= @toy.created_at %>
+<%= link_to "Delete Toy", toy_path(@toy), method: :delete %>

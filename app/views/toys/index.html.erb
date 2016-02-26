@@ -1,0 +1,4 @@
+<h1>All Toys</h1>
+<% @toys.each do |t| %>
+	<%=link_to t.name, toy_path(t.id), method: :get %>
+<% end %>
