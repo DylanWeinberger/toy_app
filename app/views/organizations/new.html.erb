@@ -1,0 +1,14 @@
+<h1>Create a new organization</h1>
+<%= form_for @org do |f| %>
+<%= f.label :username %>
+<%= f.text_field :username %>
+<%= f.label :email %>
+<%= f.email_field :email %>
+<%= f.label :address %>
+<%= f.text_field :address %>
+<%= f.label :password %>
+<%= f.password_field :password %>
+<%= f.label :password_confirmation %>
+<%= f.password_field :password_confirmation %>
+<%= f.submit :create %>
+<% end %>

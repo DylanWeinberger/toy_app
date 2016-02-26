@@ -13,7 +13,7 @@ class ToysController < ApplicationController
 			flash[:notice] = "Your Toy Was Created"
 			redirect_to @toy
 		else
-			flashh[:notice] = "there was a problem creating your toy."
+			flash[:notice] = "there was a problem creating your toy."
 			redirect_to :back
 		end
 	end

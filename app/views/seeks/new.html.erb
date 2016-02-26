@@ -1,0 +1,8 @@
+<h1>Looking for a toy? Create A toy seek</h1>
+<%= form_for @seek do |f| %>
+<%= f.label :name %>
+<%= f.text_field :name %>
+<%= f.label :comment %>
+<%= f.text_area :comment %>
+<%= f.hidden_field(:organization_id, :value => current_org.id)%>
+<%= f.submit :create %>
