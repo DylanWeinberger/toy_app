@@ -7,12 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<% if flash[:notice] %>
+  <% if logged_in_don? %>
+  <h4>Welcome, <%=current_don.username %></h4>
+    <%= link_to("logout", '/logout', method: :delete, class: "logout") %>
+  <% end -%>
+	
+  <% if flash[:notice] %>
   		<div><%= flash[:notice] %></div>
 	<% end %>
 	<% if flash[:alert] %>
   		<div><%= flash[:alert] %></div>
 	<% end %>
+
 <%= yield %>
 
 </body>

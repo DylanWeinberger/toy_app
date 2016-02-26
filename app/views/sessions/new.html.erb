@@ -1,0 +1,9 @@
+<h3> Donator Login </h3>
+<%= form_tag("/login", method: "post") do %>    
+    <%= text_field_tag(:username, nil, :placeholder => 'username') %> 
+    <%= tag :br %>
+    <%= tag :br %>
+    <%= password_field_tag(:password_digest, nil, :placeholder => 'Password') %>
+    <%= tag :br %>  
+    <%= submit_tag "log in" %>
+    <% end %>
