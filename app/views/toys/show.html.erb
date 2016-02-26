@@ -1,5 +1,7 @@
 <h1>Toy Show Page</h1>
-<%= @toy.name %>
+<p>Toy Name: <%= @toy.name %> </p>
 <%= image_tag @toy.image.url(:medium) %>
+<p> Toy Owner: <%= @toy.donator.username %> </p>
+<br>
 <%= @toy.created_at %>
 <%= link_to "Delete Toy", toy_path(@toy), method: :delete %>

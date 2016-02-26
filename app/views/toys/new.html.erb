@@ -3,5 +3,6 @@
 <%= f.text_field :name %>
 <%= f.label :image %>
 <%= f.file_field :image %>
+<%= f.hidden_field(:donator_id, :value => current_don.id)%>
 <%= f.submit :create %>
 <% end %>

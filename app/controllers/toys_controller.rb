@@ -31,6 +31,6 @@ class ToysController < ApplicationController
 
 	private
 	def toy_params
-  		params.require(:toy).permit(:name, :image)
+  		params.require(:toy).permit(:name, :image, :donator_id)
 	end
 end
