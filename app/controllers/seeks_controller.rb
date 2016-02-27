@@ -22,6 +22,7 @@ class SeeksController < ApplicationController
 
   def show
     @seek = Seek.find(params[:id])
+    @donandseek = DonAndSeekConnect.new
   end
 
   def edit

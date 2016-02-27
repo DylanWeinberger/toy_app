@@ -1,0 +1,2 @@
+module DonAndSeekConnectsHelper
+end

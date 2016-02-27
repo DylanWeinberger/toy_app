@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227170015) do
+ActiveRecord::Schema.define(version: 20160227175926) do
+
+  create_table "don_and_seek_connects", force: :cascade do |t|
+    t.integer  "donator_id"
+    t.integer  "seek_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "donators", force: :cascade do |t|
     t.string   "username"

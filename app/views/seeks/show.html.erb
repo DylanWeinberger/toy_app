@@ -1,1 +1,22 @@
 <h1>Seek show Page</h1>
+<%= @seek.toy.name %>
+<%= image_tag @seek.toy.image.url(:thumb) %>
+<%= link_to @seek.organization.username, @seek.organization, :class => "link_to_buttons" %>
+<%= form_for(@donandseek) do |f| %>
+  <% if logged_in_don? %>
+  <div class="attending">
+    <h3> Do you have this toy? Want to Donate?</h3>
+
+    <div class="field">
+       <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+    </div>
+    <div>
+      <%= f.hidden_field(:seek_id, :value => @seek.id)%>
+    </div>
+     <div>
+      <%= f.submit "start a connection!", :class => "RSVP_button" %>
+    </div>
+  </div>
+<% end %>
+<% end %>
+

@@ -1,5 +1,5 @@
 <h1>Seeks#index</h1>
 <% @seeks.each do |seek| %>
-<%= seek.toy.name %>
-<%= seek.organization.username %>
+<%= link_to seek.toy.name, seek, :class => "link_to_buttons" %>
+<%= link_to seek.organization.username, seek.organization, :class => "link_to_buttons" %>
 <% end %>
