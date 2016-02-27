@@ -1,4 +1,34 @@
-<h1>Organization and Donors_toy Connections page</h1>
-<%= @organdtoy.organization.username %>
-<%= @organdtoy.donors_toy.toy.name %>
-<%= @organdtoy.donors_toy.donator.username %>
+<h1>Discussion regarding <%=  @organdtoy.donors_toy.toy.name  %> , between <%= @organdtoy.organization.username %>, and <%= @organdtoy.donors_toy.donator.username  %></h1>
+
+    <div class="commentaddition">
+        <% if logged_in_don? || logged_in_org? %>
+            <%= content_tag :h3, "Chat about this toy." %>
+            <%= form_for @comment do |f| %>
+            <%= f.label :message %>
+            <%= f.text_field :body %>
+            <br>
+            <br>
+            <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id)%>
+            <% if logged_in_org? %>
+            <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+            <% end %>
+			<% if logged_in_don? %>
+			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
+			<% end %>
+            <%= f.submit :create %>
+            <% end %>
+           <% end %> 
+        </div>
+        <div class = "comments_section">
+        	<% @organdtoy.comments_org_donor_toys.each do |c| %>
+        	<%= c.body %>
+        	<% if c.donator_id != nil %>
+        		from <%= c.donator.username %>
+        	<% end %>
+        	<% if c.organization_id != nil %>
+        		from <%= c.organization.username %>
+        	<% end %>
+        	<br>
+        	<% end %>
+
+        </div>

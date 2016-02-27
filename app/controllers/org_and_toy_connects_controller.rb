@@ -19,6 +19,7 @@ class OrgAndToyConnectsController < ApplicationController
 
 	def show
 		@organdtoy = OrgAndToyConnect.find(params[:id])
+		@comment = CommentsOrgDonorToy.new
 	end
 	
 	private 
