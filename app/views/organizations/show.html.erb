@@ -2,3 +2,11 @@
 <%= @org.username %>
 <%= @org.email %>
 <%= @org.address %>
+
+<h3>These are the toys that we are looking for!</h3>
+<% @org.toys.each do |t| %>
+<%= t.name %>
+<%= image_tag t.image.url(:thumb) %>
+<% end %>
+
+

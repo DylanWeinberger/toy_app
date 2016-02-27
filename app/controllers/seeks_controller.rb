@@ -9,9 +9,11 @@ class SeeksController < ApplicationController
 
   def create
     @seek = Seek.new(seek_params)
+    @seek.organization_id = current_org.id 
+    @seek.toy_id = params[:seek][:toy_id]
     if @seek.save
       flash[:notice] = "Your seek was created."
-      redirect_to @seek
+      redirect_to @current_org
     else
       flash[:notice] = "There was a problem creating your seek."
       redirect_to :back
@@ -35,7 +37,7 @@ class SeeksController < ApplicationController
   private
 
   def seek_params
-    params.require(:seek).permit(:name, :organization_id, :comment)
+    params.require(:seek).permit( :organization_id, :toy_id, :comment)
   end
 
 end

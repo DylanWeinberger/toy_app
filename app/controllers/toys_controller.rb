@@ -44,6 +44,7 @@ class ToysController < ApplicationController
 	def show
 		@toy = Toy.find(params[:id])
 		@donors_toy = DonorsToy.new
+		@seek = Seek.new
 	end
 
 	def destroy

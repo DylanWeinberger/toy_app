@@ -2,6 +2,7 @@
 <%= @don.username %>
 <br>
 <%= @don.email %>
+<h3>These are the toys I have available for donation!</h3>
 <% @don.toys.each do |t| %>
 <%= t.name %>
 <%= image_tag t.image.url(:thumb) %>

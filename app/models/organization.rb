@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
 	has_secure_password
 	has_many :seeks
-	has_many :toys
+	has_many :toys, through: :seeks
 end

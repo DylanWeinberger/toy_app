@@ -5,6 +5,8 @@ class Toy < ActiveRecord::Base
 
   has_many :donors_toys
   has_many :donators, through: :donors_toys
+  has_many :seeks
+  has_many :organizations, through: :seeks
 
   # belongs_to :organization
 end
