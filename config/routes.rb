@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :toys
   resources :donors_toys
   resources :don_and_seek_connects
+  resources :org_and_toy_connects
   # You can have the root of your site routed with "root"
   root 'toys#index'
   get 'login' => 'sessions#new', as: :login

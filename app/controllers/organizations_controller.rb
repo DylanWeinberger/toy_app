@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
 
   def show
     @org = Organization.find(params[:id])
+    @donandseek = DonAndSeekConnect.new
   end
 
   def destroy
