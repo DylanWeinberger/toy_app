@@ -31,7 +31,7 @@ class SeeksController < ApplicationController
     @seek = Seek.find(params[:id])
     @seek.destroy
     flash[:notice] = "Your seek has been destroyed."
-    redirect_to root_path
+    redirect_to :back
   end
 
   private
