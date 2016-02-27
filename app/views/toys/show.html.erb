@@ -1,7 +1,26 @@
 <h1>Toy Show Page</h1>
 <p>Toy Name: <%= @toy.name %> </p>
 <%= image_tag @toy.image.url(:medium) %>
-<p> Toy Owner: <%= @toy.donator.username %> </p>
 <br>
 <%= @toy.created_at %>
+<%= form_for(@donors_toy) do |f| %>
+  <% if logged_in_don? %>
+  <div class="attending">
+    <h3> Do you have this toy? Want to Donate?</h3>
+
+    <div class="field">
+       <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+    </div>
+    <div>
+      <%= f.hidden_field(:toy_id, :value => @toy.id)%>
+    </div>
+     <div>
+      <%= f.submit "Donate!", :class => "RSVP_button" %>
+    </div>
+  </div>
+<% end %>
+<% end %>
+
+
+<%= link_to "Have you donated this toy?", edit_toy_path(@toy), method: :get %>
 <%= link_to "Delete Toy", toy_path(@toy), method: :delete %>

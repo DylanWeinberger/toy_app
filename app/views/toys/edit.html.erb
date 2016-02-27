@@ -1,0 +1,7 @@
+<%= form_for @toy do |f| %>
+
+<%= f.label :Organization_Donated_To %>
+<% org_options = options_from_collection_for_select(@orgs, 'id', 'username') %>
+<%= f.select :organization_id, org_options %>
+<%= f.submit :Confirm %>
+<% end %>

@@ -1,6 +1,6 @@
 class SeeksController < ApplicationController
   def index
-    @seek = Seek.all
+    @seeks = Seek.all
   end
 
   def new
@@ -33,7 +33,7 @@ class SeeksController < ApplicationController
   end
 
   private
-  
+
   def seek_params
     params.require(:seek).permit(:name, :organization_id, :comment)
   end

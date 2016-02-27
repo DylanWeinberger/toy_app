@@ -6,10 +6,13 @@ Rails.application.routes.draw do
   resources :organizations
   resources :donators
   resources :toys
+  resources :donors_toys
   # You can have the root of your site routed with "root"
   root 'toys#index'
   get 'login' => 'sessions#new', as: :login
-  post 'login' => 'sessions#create_don_session'
+  post 'login_don' => 'sessions#create_don_session'
+  post 'login_org' => 'sessions#create_org_session'
+  patch 'update_toy' => 'toys#update', as: :update_toy
   delete 'logout' => 'sessions#destroy', as: :logout
 
   # Example of regular route:

@@ -8,8 +8,13 @@
 </head>
 <body>
   <% if logged_in_don? %>
-  <h4>Welcome, <%=current_don.username %></h4>
+    <h4>Welcome, <%=current_don.username %></h4>
     <%= link_to("logout", '/logout', method: :delete, class: "logout") %>
+  <% elsif logged_in_org? %>
+    <h4>Welcome, <%=current_org.username %></h4>
+    <%= link_to("logout", '/logout', method: :delete, class: "logout") %>
+  <% else %>
+    <%= link_to("login", '/login', method: :get, class: "login")%>
   <% end -%>
 	
   <% if flash[:notice] %>

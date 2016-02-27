@@ -1,3 +1,4 @@
+<% if logged_in_org? %>
 <h1>Looking for a toy? Create A toy seek</h1>
 <%= form_for @seek do |f| %>
 <%= f.label :name %>
@@ -6,3 +7,7 @@
 <%= f.text_area :comment %>
 <%= f.hidden_field(:organization_id, :value => current_org.id)%>
 <%= f.submit :create %>
+<% end %>
+<% else %>
+<h1>Please Log in as an Organization to start seeking for a toy.</h1>
+<% end %>
