@@ -1,5 +1,33 @@
-<h1>Don and Seek connect page</h1>
-<%= @donandseek.donator.username %>
-<%= @donandseek.seek.toy.name %>
-<%= @donandseek.seek.organization.username %>
+<h1>Discussion regarding <%=  @donandseek.seek.toy.name  %> , between <%= @donandseek.organization.username %>, and <%= @donandseek.donator.username  %></h1>
+ 	<div class="commentaddition">
+        <% if logged_in_don? || logged_in_org? %>
+            <%= content_tag :h3, "Chat about this toy." %>
+            <%= form_for @comment do |f| %>
+            <%= f.label :message %>
+            <%= f.text_field :body %>
+            <br>
+            <br>
+            <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id)%>
+            <% if logged_in_org? %>
+            <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+            <% end %>
+			<% if logged_in_don? %>
+			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
+			<% end %>
+            <%= f.submit :create %>
+            <% end %>
+           <% end %> 
+        </div>
+        <div class = "comments_section">
+        	<% @donandseek.comments_don_and_seek.each do |c| %>
+        	<%= c.body %>
+        	<% if c.donator_id != nil %>
+        		from <%= c.donator.username %>
+        	<% end %>
+        	<% if c.organization_id != nil %>
+        		from <%= c.organization.username %>
+        	<% end %>
+        	<br>
+        	<% end %>
 
+        </div>

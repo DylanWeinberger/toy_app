@@ -1,0 +1,2 @@
+module CommentsDonAndSeeksHelper
+end
