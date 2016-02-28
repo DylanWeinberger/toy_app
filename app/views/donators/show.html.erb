@@ -27,6 +27,7 @@
       <% end %>
     <% end %>  
     <!-- Continue Org Conversation -->
+    <h3>active conversations</h3>
     <% if @don.org_and_toy_connects.count != 0 %>
       <h1>Continue a conversation</h1>
         <% @don.org_and_toy_connects.each do |t| %>
@@ -39,6 +40,21 @@
         <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
       <% end %>
     <% end %>
+    <h3>Closed Conversations</h3>
+    <% if @don.org_and_toy_connects.count != 0 %>
+      <% @don.org_and_toy_connects.each do |t| %>
+      <% if t.active == false %>
+        <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+       <% end %> 
+    <% end %>
+  <% end %>
+  <% if @don.don_and_seek_connects.count != 0 %>
+    <% @don.don_and_seek_connects.each do |t| %>
+      <% if t.active == false %>
+        <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
+      <% end %>
+    <% end %>
+  <% end %>
 
     
       <% if @don.received_toys.count == 0 %>
