@@ -20,6 +20,7 @@ class DonatorsController < ApplicationController
 
   def show
     @don = Donator.find(params[:id])
+    @organdtoy = OrgAndToyConnect.new
   end
 
   def edit

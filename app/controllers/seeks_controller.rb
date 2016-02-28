@@ -22,6 +22,7 @@ class SeeksController < ApplicationController
 
   def show
     @seek = Seek.find(params[:id])
+    @donandseek = DonAndSeekConnect.new
   end
 
   def edit
@@ -31,7 +32,7 @@ class SeeksController < ApplicationController
     @seek = Seek.find(params[:id])
     @seek.destroy
     flash[:notice] = "Your seek has been destroyed."
-    redirect_to root_path
+    redirect_to :back
   end
 
   private
