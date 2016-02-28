@@ -33,6 +33,12 @@
           <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
         <% end %>
       <% end %>
+    <% if @don.don_and_seek_connects.count != 0 %>
+      <h1>Continue a conversation</h1>
+      <% @don.don_and_seek_connects.each do |t| %>
+        <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
+      <% end %>
+    <% end %>
 
     
       <% if @don.received_toys.count == 0 %>

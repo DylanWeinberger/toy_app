@@ -28,13 +28,9 @@
   <% if logged_in_org? %>
   <div class="attending">
     <h3> Do you want this toy?</h3>
-
-    <div class="field">
        <%= f.hidden_field(:organization_id, :value => current_org.id) %>
-    </div>
-    <div>
+        <%= f.hidden_field(:active, :value => true) %>
       <%= f.hidden_field(:toy_id, :value => @toy.id)%>
-    </div>
      <div>
       <%= f.submit "Request Toy!", :class => "RSVP_button" %>
     </div>

@@ -1,14 +1,19 @@
 <h1>Discussion regarding <%=  @donandseek.seek.toy.name  %> , between <%= @donandseek.organization.username %>, and <%= @donandseek.donator.username  %></h1>
         <!-- Received Toy Section -->
+    <% if @donandseek.seek.active == true %>
         <% if logged_in_org? %>
             <h1>Have you received this toy?</h1>
             <%= form_for @received do |f| %>
                 <%= f.hidden_field(:seek_id, :value => @donandseek.seek.id) %>
                 <%= f.hidden_field(:organization_id, :value => @donandseek.organization.id) %>
-                <%= f.hidden_field(:donators_id, :value => @donandseek.donors_toy.donator_id) %>
+                <%= f.hidden_field(:donator_id, :value => @donandseek.donator_id) %>
+                <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id) %>
                 <%= f.submit :create, data: { confirm: 'Are you sure? This will close your convseration.' } %>
             <% end %>
         <% end %> 
+    <% else %>
+        <h3>It looks like you received this toy!</h3>
+    <% end %>    
         <!-- Comments Create Section -->
         <div class="commentaddition">
             <% if logged_in_don? || logged_in_org? %>

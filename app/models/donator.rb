@@ -3,7 +3,7 @@ class Donator < ActiveRecord::Base
 
 	has_many :donors_toys
 	has_many :toys, through: :donors_toys
-	has_many :don_and_seeks_connects
+	has_many :don_and_seek_connects
 	has_many :seeks, through: :don_and_seeks_connects
 	has_many :comments_org_donor_toys
 	has_many :org_and_toy_connects
