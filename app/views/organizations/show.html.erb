@@ -3,39 +3,50 @@
 <%= @org.email %>
 <%= @org.address %>
 
-<h3>These are the toys that we are looking for!</h3>
-<% @org.seeks.each do |t| %>
-  <%= t.toy.name %>
-  <%= image_tag t.toy.image.url(:thumb) %>
-    <%= form_for(@donandseek) do |f| %>
-      <% if logged_in_don? %>
-      <h3> Do you have this toy? Want to Donate?</h3>
-        <%= f.hidden_field(:donator_id, :value => current_don.id) %>
-        <%= f.hidden_field(:seek_id, :value => t.id)%>
-        <%= f.hidden_field(:organization_id, :value => @org.id)%>
-      <div>
-        <%= f.submit "start a connection!", :class => "RSVP_button" %>
-      </div>
+<% if @org.seeks.count == 0 %>
+<h4>Start adding toys your a looking for!</h4>
+<% else %>
+  <h3>These are the toys that we are looking for!</h3>
+  <% @org.seeks.each do |t| %>
+    <%= t.toy.name %>
+    <%= image_tag t.toy.image.url(:thumb) %>
+      <%= form_for(@donandseek) do |f| %>
+        <% if logged_in_don? %>
+        <h3> Do you have this toy? Want to Donate?</h3>
+          <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+          <%= f.hidden_field(:seek_id, :value => t.id)%>
+          <%= f.hidden_field(:organization_id, :value => @org.id)%>
+        <div>
+          <%= f.submit "start a connection!", :class => "RSVP_button" %>
+        </div>
+        <% end %>
       <% end %>
-    <% end %>
+  <% end %>
 <% end %>
-  <h1>Continue a conversation</h1>
-  <% @org.org_and_toy_connects.each do |t| %>
-    <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+
+  <% if @org.org_and_toy_connects.count != 0 %>
+    <h1>Continue a conversation</h1>
+    <% @org.org_and_toy_connects.each do |t| %>
+      <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+    <% end %>
   <% end %>
 
   <!-- Received Toys Section -->
-  <h1>These are the toys we have received.</h1>
-  <% @org.received_toys.each do |t| %>
-    <% if t.donors_toy_id != nil %>
-      <%= t.donors_toy.toy.name %>
-      <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
+  <% if @org.received_toys.count == 0 %>
+    <h4>We have not received any donations</h4>
+  <% else %>
+    <h4>These are the toys we have received!</h4>  
+      <% @org.received_toys.each do |t| %>
+      <% if t.donors_toy_id != nil %>
+        <%= t.donors_toy.toy.name %>
+        <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
+      <% end %>
+      <% if t.seek_id != nil %>
+        <%= t.seek.toy.name %>
+        <%= image_tag t.seek.toy.image.url(:thumb) %>
+      <% end %>
     <% end %>
-    <% if t.seek_id != nil %>
-      <%= t.seek.toy.name %>
-      <%= image_tag t.seek.toy.image.url(:thumb) %>
-    <% end %>
-  <% end %>  
+  <% end %>    
 
 
 

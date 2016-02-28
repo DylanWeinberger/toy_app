@@ -14,6 +14,9 @@
     <div>
       <%= f.hidden_field(:toy_id, :value => @toy.id)%>
     </div>
+    <div>
+      <%= f.hidden_field(:active, :value => true) %>
+    </div>
      <div>
       <%= f.submit "Donate!", :class => "RSVP_button" %>
     </div>

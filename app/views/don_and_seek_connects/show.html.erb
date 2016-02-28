@@ -1,23 +1,35 @@
 <h1>Discussion regarding <%=  @donandseek.seek.toy.name  %> , between <%= @donandseek.organization.username %>, and <%= @donandseek.donator.username  %></h1>
- 	<div class="commentaddition">
-        <% if logged_in_don? || logged_in_org? %>
-            <%= content_tag :h3, "Chat about this toy." %>
-            <%= form_for @comment do |f| %>
-            <%= f.label :message %>
-            <%= f.text_field :body %>
-            <br>
-            <br>
-            <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id)%>
-            <% if logged_in_org? %>
-            <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+        <!-- Received Toy Section -->
+        <% if logged_in_org? %>
+            <h1>Have you received this toy?</h1>
+            <%= form_for @received do |f| %>
+                <%= f.hidden_field(:seek_id, :value => @donandseek.seek.id) %>
+                <%= f.hidden_field(:organization_id, :value => @donandseek.organization.id) %>
+                <%= f.hidden_field(:donators_id, :value => @donandseek.donors_toy.donator_id) %>
+                <%= f.submit :create, data: { confirm: 'Are you sure? This will close your convseration.' } %>
             <% end %>
-			<% if logged_in_don? %>
-			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
-			<% end %>
-            <%= f.submit :create %>
-            <% end %>
-           <% end %> 
+        <% end %> 
+        <!-- Comments Create Section -->
+        <div class="commentaddition">
+            <% if logged_in_don? || logged_in_org? %>
+                <%= content_tag :h3, "Chat about this toy." %>
+                <%= form_for @comment do |f| %>
+                <%= f.label :message %>
+                <%= f.text_field :body %>
+                <br>
+                <br>
+                <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id)%>
+                <% if logged_in_org? %>
+                <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+                <% end %>
+    			<% if logged_in_don? %>
+    			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
+    			<% end %>
+                <%= f.submit :create %>
+                <% end %>
+            <% end %> 
         </div>
+        <!-- Comments Show Section -->
         <div class = "comments_section">
         	<% @donandseek.comments_don_and_seek.each do |c| %>
         	<%= c.body %>
