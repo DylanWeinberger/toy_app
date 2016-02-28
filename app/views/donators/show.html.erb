@@ -5,7 +5,7 @@
   <!-- Toy Listing Section -->
   <h3>These are the toys I have available for donation!</h3>
     <% @don.donors_toys.each do |t| %>
-      <%= t.toy.name %>
+      <!-- section to check if toy id is the same. -->
       <%= image_tag t.toy.image.url(:thumb) %>
         <%= form_for(@organdtoy) do |f| %>
           <% if logged_in_org? %>
