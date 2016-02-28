@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227185503) do
+ActiveRecord::Schema.define(version: 20160227222843) do
+
+  create_table "comments_org_donor_toys", force: :cascade do |t|
+    t.integer  "donator_id"
+    t.integer  "organization_id"
+    t.integer  "org_and_toy_connect_id"
+    t.string   "body"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "don_and_seek_connects", force: :cascade do |t|
     t.integer  "donator_id"
@@ -41,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160227185503) do
     t.integer  "donors_toy_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.integer  "donator_id"
   end
 
   create_table "organizations", force: :cascade do |t|

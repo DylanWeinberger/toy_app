@@ -5,26 +5,28 @@
 
 <h3>These are the toys that we are looking for!</h3>
 <% @org.seeks.each do |t| %>
-<%= t.toy.name %>
-<%= image_tag t.toy.image.url(:thumb) %>
+  <%= t.toy.name %>
+  <%= image_tag t.toy.image.url(:thumb) %>
+<% end %>
+
 <%= form_for(@donandseek) do |f| %>
   <% if logged_in_don? %>
-  <div class="attending">
     <h3> Do you have this toy? Want to Donate?</h3>
+      <div class="field">
+      <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+      </div>
+      <div>
+        <%= f.hidden_field(:seek_id, :value => t.id)%>
+      </div>
+      <div>
+        <%= f.submit "start a connection!", :class => "RSVP_button" %>
+      </div>
+  <% end %>
+<% end %>
+  <h1>Continue a conversation</h1>
+  <% @org.org_and_toy_connects.each do |t| %>
+    <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+  <% end %>
 
-    <div class="field">
-       <%= f.hidden_field(:donator_id, :value => current_don.id) %>
-    </div>
-    <div>
-      <%= f.hidden_field(:seek_id, :value => t.id)%>
-    </div>
-     <div>
-      <%= f.submit "start a connection!", :class => "RSVP_button" %>
-    </div>
-  </div>
-<% end %>
-<% end %>
-
-<% end %>
 
 
