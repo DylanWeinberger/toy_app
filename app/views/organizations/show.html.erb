@@ -24,5 +24,18 @@
     <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
   <% end %>
 
+  <!-- Received Toys Section -->
+  <h1>These are the toys we have received.</h1>
+  <% @org.received_toys.each do |t| %>
+    <% if t.donors_toy_id != nil %>
+      <%= t.donors_toy.toy.name %>
+      <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
+    <% end %>
+    <% if t.seek_id != nil %>
+      <%= t.seek.toy.name %>
+      <%= image_tag t.seek.toy.image.url(:thumb) %>
+    <% end %>
+  <% end %>  
+
 
 

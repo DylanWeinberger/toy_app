@@ -1,4 +1,15 @@
 <h1>Discussion regarding <%=  @organdtoy.donors_toy.toy.name  %> , between <%= @organdtoy.organization.username %>, and <%= @organdtoy.donors_toy.donator.username  %></h1>
+<!-- Received toy section -->
+    <% if logged_in_org? %>
+        <h1>Have you received this toy?</h1>
+        <%= form_for @received do |f| %>
+            
+            <%= f.hidden_field(:donors_toy_id, :value => @organdtoy.donors_toy.id) %>
+            <%= f.hidden_field(:organization_id, :value => @organdtoy.organization.id) %>
+            <%= f.hidden_field(:donators_id, :value => @organdtoy.donors_toy.donator_id) %>
+            <%= f.submit :create, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+    <% end %>    
 
     <div class="commentaddition">
         <% if logged_in_don? || logged_in_org? %>

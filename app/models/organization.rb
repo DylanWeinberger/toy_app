@@ -8,4 +8,5 @@ class Organization < ActiveRecord::Base
 	has_many :comments_org_donor_toys
 	has_many :don_and_seek_connects
 	has_many :comments_don_and_seeks
+	has_many :received_toys
 end
