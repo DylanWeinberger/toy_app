@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228185042) do
+ActiveRecord::Schema.define(version: 20160228203147) do
 
   create_table "comments_don_and_seeks", force: :cascade do |t|
     t.integer  "donator_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 20160228185042) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "organization_id"
+    t.boolean  "active"
   end
 
   create_table "donators", force: :cascade do |t|
@@ -78,10 +79,11 @@ ActiveRecord::Schema.define(version: 20160228185042) do
     t.integer  "donors_toy_id"
     t.integer  "organization_id"
     t.integer  "donator_id"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
     t.integer  "seek_id"
     t.integer  "org_and_toy_connect_id"
+    t.integer  "don_and_seek_connect_id"
   end
 
   create_table "seeks", force: :cascade do |t|
@@ -90,6 +92,7 @@ ActiveRecord::Schema.define(version: 20160228185042) do
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.integer  "toy_id"
+    t.boolean  "active"
   end
 
   create_table "toys", force: :cascade do |t|

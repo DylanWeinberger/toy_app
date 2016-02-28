@@ -16,7 +16,12 @@ class ReceivedToysController < ApplicationController
 				@donors_toy.update_attributes(:active => false)
 				@organdtoy = OrgAndToyConnect.find(params[:received_toy][:org_and_toy_connect_id])
 				@organdtoy.update_attributes(:active => false)
-				
+			end
+			if @received.seek_id != nil
+				@seek = Seek.find(params[:received_toy][:seek_id])	
+				@seek.update_attributes(:active => false)
+				@donandseek = DonAndSeekConnect.find(params[:received_toy][:don_and_seek_connect_id])
+				@donandseek.update_attributes(:active => false)
 			end		
 		else
 			flash[:notice] = "there was a problem with your request."
@@ -27,7 +32,7 @@ class ReceivedToysController < ApplicationController
 	private
 	
 	def received_params
-		params.require(:received_toy).permit(:organization_id, :donors_toy_id, :donator_id, :seek_id, :org_and_toy_connect_id)
+		params.require(:received_toy).permit(:organization_id, :donors_toy_id, :donator_id, :seek_id, :org_and_toy_connect_id, :don_and_seek_connect_id)
 	end
 
 end

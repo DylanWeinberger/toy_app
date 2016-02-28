@@ -38,7 +38,7 @@ class SeeksController < ApplicationController
   private
 
   def seek_params
-    params.require(:seek).permit( :organization_id, :toy_id, :comment)
+    params.require(:seek).permit( :organization_id, :toy_id, :comment, :active)
   end
 
 end

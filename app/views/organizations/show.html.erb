@@ -16,6 +16,7 @@
           <%= f.hidden_field(:donator_id, :value => current_don.id) %>
           <%= f.hidden_field(:seek_id, :value => t.id)%>
           <%= f.hidden_field(:organization_id, :value => @org.id)%>
+          <%= f.hidden_field(:active, :value => true) %>
         <div>
           <%= f.submit "start a connection!", :class => "RSVP_button" %>
         </div>
@@ -28,6 +29,12 @@
     <h1>Continue a conversation</h1>
     <% @org.org_and_toy_connects.each do |t| %>
       <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+    <% end %>
+  <% end %>
+  <% if @org.don_and_seek_connects.count != 0 %>
+    <h1>Continue a conversation</h1>
+    <% @org.don_and_seek_connects.each do |t| %>
+      <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
     <% end %>
   <% end %>
 

@@ -20,11 +20,12 @@ class DonAndSeekConnectsController < ApplicationController
 	def show
 		@donandseek = DonAndSeekConnect.find(params[:id])
 		@comment = CommentsDonAndSeek.new
+		@received = ReceivedToy.new
 	end
 	
 	private 
 
 	def don_and_seek_params
-		params.require(:don_and_seek_connect).permit(:donator_id, :seek_id, :organization_id)
+		params.require(:don_and_seek_connect).permit(:donator_id, :seek_id, :organization_id, :active)
 	end		
 end
