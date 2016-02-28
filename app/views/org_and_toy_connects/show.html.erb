@@ -1,16 +1,21 @@
 <h1>Discussion regarding <%=  @organdtoy.donors_toy.toy.name  %> , between <%= @organdtoy.organization.username %>, and <%= @organdtoy.donors_toy.donator.username  %></h1>
 <!-- Received toy section -->
-    <% if logged_in_org? %>
-        <h1>Have you received this toy?</h1>
-        <%= form_for @received do |f| %>
-            
-            <%= f.hidden_field(:donors_toy_id, :value => @organdtoy.donors_toy.id) %>
-            <%= f.hidden_field(:organization_id, :value => @organdtoy.organization.id) %>
-            <%= f.hidden_field(:donators_id, :value => @organdtoy.donors_toy.donator_id) %>
-            <%= f.submit :create, data: { confirm: 'Are you sure?' } %>
+    <% if @organdtoy.donors_toy.active == true %>
+        <% if logged_in_org? %>
+            <h1>Have you received this toy?</h1>
+            <%= form_for @received do |f| %>
+                
+                <%= f.hidden_field(:donors_toy_id, :value => @organdtoy.donors_toy.id) %>
+                <%= f.hidden_field(:organization_id, :value => @organdtoy.organization.id) %>
+                <%= f.hidden_field(:donators_id, :value => @organdtoy.donors_toy.donator_id) %>
+                 <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id) %>
+                <%= f.submit :create, data: { confirm: 'Are you sure? This will close your conversation.' } %>
+            <% end %>
         <% end %>
-    <% end %>    
-
+    <% else %>
+        <h3>It looks like you received this toy!</h3>
+    <% end %>        
+    <!-- Comments Create Section -->
     <div class="commentaddition">
         <% if logged_in_don? || logged_in_org? %>
             <%= content_tag :h3, "Chat about this toy." %>
@@ -30,6 +35,7 @@
             <% end %>
            <% end %> 
         </div>
+        <!-- Comments Show Section -->
         <div class = "comments_section">
         	<% @organdtoy.comments_org_donor_toys.each do |c| %>
         	<%= c.body %>

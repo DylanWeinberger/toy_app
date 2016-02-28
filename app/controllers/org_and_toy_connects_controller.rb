@@ -27,7 +27,7 @@ class OrgAndToyConnectsController < ApplicationController
 	private 
 
 	def org_and_toy_params
-		params.require(:org_and_toy_connect).permit(:organization_id, :donors_toy_id, :donator_id)
+		params.require(:org_and_toy_connect).permit(:organization_id, :donors_toy_id, :donator_id, :active)
 	end		
 
 end

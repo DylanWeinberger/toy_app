@@ -20,10 +20,14 @@ class DonorsToysController < ApplicationController
 		end
 	end
 
+	def update
+		
+	end
+
 	private
 
 	def donors_toy_params
-		params.require(:donors_toy).permit(:donator_id, :toy_id, :reason_for_donation)
+		params.require(:donors_toy).permit(:donator_id, :toy_id, :reason_for_donation, :active)
 	end
 
 
