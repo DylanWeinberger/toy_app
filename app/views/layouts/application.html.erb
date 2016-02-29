@@ -7,15 +7,31 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <% if logged_in_don? %>
-    <h4>Welcome, <%=current_don.username %></h4>
-    <%= link_to("logout", '/logout', method: :delete, class: "logout") %>
-  <% elsif logged_in_org? %>
-    <h4>Welcome, <%=current_org.username %></h4>
-    <%= link_to("logout", '/logout', method: :delete, class: "logout") %>
-  <% else %>
-    <%= link_to("login", '/login', method: :get, class: "login")%>
-  <% end -%>
+  <nav>
+    <ul>
+      <li><%= link_to "Toys", toys_path %></li>
+      <li><%= link_to "Donors", donators_path %></li>
+      <li><%= link_to "Organizations", organizations_path %></li>
+      <% if logged_in_don? %>
+      <li><%= link_to "My Profile", donator_path(current_don.id) %></li>
+      <% end %>
+      <% if logged_in_org? %>
+      <li><%= link_to "My Profile", organization_path(current_org.id) %></li>
+      <% end %>
+    </ul>
+  </nav>
+  <div class = "welcome"></div>
+    <% if logged_in_don? %>
+      <h4>Welcome, <%=current_don.username %></h4>
+      <%= link_to("Sign Out", '/logout', method: :delete, class: "logout") %>
+    <% elsif logged_in_org? %>
+      <h4>Welcome, <%=current_org.username %></h4>
+      <%= link_to("Sign Out", '/logout', method: :delete, class: "logout") %>
+    <% else %>
+      <%= link_to("Sign In", '/login', method: :get, class: "login")%>
+      <%= link_to("Sign Up", new_donator_path, method: :get, class: "login")%>
+    <% end -%>
+  </div>
 	
   <% if flash[:notice] %>
   		<div><%= flash[:notice] %></div>

@@ -25,7 +25,15 @@ class SeeksController < ApplicationController
     @donandseek = DonAndSeekConnect.new
   end
 
-  def edit
+  def update
+    @seek = Seek.find(params[:id])
+    if @seek.update(seek_params)
+      flash[:notice] = "Your toy has been marked as sent."
+      redirect_to :back
+    else
+      flash[:notice] = "something went wrong. please try again."
+      redirect_to :back
+    end
   end
 
   def destroy
@@ -38,7 +46,7 @@ class SeeksController < ApplicationController
   private
 
   def seek_params
-    params.require(:seek).permit( :organization_id, :toy_id, :comment, :active)
+    params.require(:seek).permit( :organization_id, :toy_id, :comment, :active, :sent)
   end
 
 end

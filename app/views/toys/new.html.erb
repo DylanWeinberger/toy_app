@@ -1,4 +1,4 @@
-<% if logged_in_don? %>
+<% if logged_in_don? || logged_in_org? %>
 <%= form_for @toy do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
@@ -7,5 +7,5 @@
 <%= f.submit :create %>
 <% end %>
 <% else %>
-<h1>Please Log in as a Donator to create a toy.</h1>
+<h1>Please Log in to create a toy.</h1>
 <% end %>

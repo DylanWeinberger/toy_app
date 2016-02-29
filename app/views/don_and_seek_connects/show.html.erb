@@ -1,6 +1,14 @@
 <h1>Discussion regarding <%=  @donandseek.seek.toy.name  %> , between <%= @donandseek.organization.username %>, and <%= @donandseek.donator.username  %></h1>
         <!-- Received Toy Section -->
-    <% if @donandseek.seek.active == true %>
+        <!-- Conditionals to show button for donor to send toy. -->
+    <% if logged_in_don? && @donandseek.seek.sent == false %>
+        <h1>Testing</h1>
+        <%= form_for @donandseek.seek do |f| %>
+            <%= f.hidden_field(:sent, :value => true) %>
+            <%= f.submit %>
+        <% end %>
+    <% end %>        
+    <% if @donandseek.seek.active == true && @donandseek.seek.sent == true %>
         <% if logged_in_org? %>
             <h1>Have you received this toy?</h1>
             <%= form_for @received do |f| %>
