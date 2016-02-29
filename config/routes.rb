@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
 
  
+  resources :organizations 
   resources :seeks
-  resources :organizations
+
   resources :donators
   resources :toys
   resources :donors_toys
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   resources :comments_org_donor_toys
   resources :comments_don_and_seeks
   resources :received_toys
+  resources :orgprofiles
   # You can have the root of your site routed with "root"
   root 'toys#index'
   get 'login' => 'sessions#new', as: :login
@@ -19,6 +21,7 @@ Rails.application.routes.draw do
   post 'login_org' => 'sessions#create_org_session'
   patch 'update_toy' => 'toys#update', as: :update_toy
   delete 'logout' => 'sessions#destroy', as: :logout
+  # get 'seeks' => 'seeks#index', as: :seeks_path 
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

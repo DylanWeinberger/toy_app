@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160229153730) do
+ActiveRecord::Schema.define(version: 20160229185912) do
 
   create_table "comments_don_and_seeks", force: :cascade do |t|
     t.integer  "donator_id"
@@ -65,6 +65,15 @@ ActiveRecord::Schema.define(version: 20160229153730) do
     t.datetime "updated_at",      null: false
     t.integer  "donator_id"
     t.boolean  "active"
+  end
+
+  create_table "org_profiles", force: :cascade do |t|
+    t.string   "address"
+    t.string   "website"
+    t.string   "name"
+    t.integer  "organization_id"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "organizations", force: :cascade do |t|

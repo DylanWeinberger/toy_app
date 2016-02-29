@@ -1,57 +1,110 @@
 <h1>Discussion regarding <%=  @donandseek.seek.toy.name  %> , between <%= @donandseek.organization.username %>, and <%= @donandseek.donator.username  %></h1>
-        <!-- Received Toy Section -->
-        <!-- Conditionals to show button for donor to send toy. -->
-    <% if logged_in_don? && @donandseek.seek.sent == false %>
-        <h4>Have you sent this item?</h4>
-        <%= form_for @donandseek.seek do |f| %>
-            <%= f.hidden_field(:sent, :value => true) %>
-            <%= f.submit %>
-        <% end %>
-    <% end %>        
-    <% if @donandseek.seek.active == true && @donandseek.seek.sent == true %>
-        <% if logged_in_org? %>
-            <h1>Have you received this toy?</h1>
-            <%= form_for @received do |f| %>
-                <%= f.hidden_field(:seek_id, :value => @donandseek.seek.id) %>
-                <%= f.hidden_field(:organization_id, :value => @donandseek.organization.id) %>
-                <%= f.hidden_field(:donator_id, :value => @donandseek.donator_id) %>
-                <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id) %>
-                <%= f.submit :create, data: { confirm: 'Are you sure? This will close your convseration.' } %>
+<!-- Making sure correct Donator is logged in. Same done Below -->
+<% if logged_in_don? %>
+    <% if current_don.id == @donandseek.donator_id %>
+    <!-- Section Below is for the Donator to say they have sent the toy. -->
+        <% if @donandseek.seek.sent == false %>
+            <h4>Have you sent this Toy?</h4>
+            <%= form_for @donandseek.seek do |f| %>
+                <%= f.hidden_field(:sent, :value => true) %>
+                <%= f.submit :Sent! %>
+            <!-- ending for form for sent toy.  -->
             <% end %>
-        <% end %> 
-        <!-- More Conditionals regarding whether they are waiting to have toy sent or they have already received toy. -->
-    <% end %>    
+        <% elsif @donandseek.seek.sent == true && @donandseek.active == true %>
+            <h4>You have sent the toy but they have not received it yet.</h4>
+        <% elsif @donandseek.active == true  %>
+            <h4>The organization has received this toy! Thanks!</h4>        
+        <!-- ending for checking if sent is marked as false  -->
+        <% end %>
         <!-- Comments Create Section -->
         <div class="commentaddition">
-            <% if logged_in_don? || logged_in_org? %>
-                <%= content_tag :h3, "Chat about this toy." %>
-                <%= form_for @comment do |f| %>
+            <%= content_tag :h3, "Chat about this toy." %>
+            <%= form_for @comment do |f| %>
                 <%= f.label :message %>
                 <%= f.text_field :body %>
                 <br>
-                <br>
                 <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id)%>
-                <% if logged_in_org? %>
-                <%= f.hidden_field(:organization_id, :value => current_org.id)%>
-                <% end %>
-    			<% if logged_in_don? %>
-    			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
-    			<% end %>
+                <%= f.hidden_field(:donator_id, :value => current_don.id)%>
                 <%= f.submit :create %>
-                <% end %>
-            <% end %> 
+            <!-- end of form_for @comment -->
+            <% end %>
         </div>
         <!-- Comments Show Section -->
         <div class = "comments_section">
-        	<% @donandseek.comments_don_and_seek.each do |c| %>
-        	<%= c.body %>
-        	<% if c.donator_id != nil %>
-        		from <%= c.donator.username %>
-        	<% end %>
-        	<% if c.organization_id != nil %>
-        		from <%= c.organization.username %>
-        	<% end %>
-        	<br>
-        	<% end %>
-
+            <% @donandseek.comments_don_and_seek.each do |c| %>
+                <p><%= c.body %></p>
+                <!-- Checking to see if the donator id or the org id is nil to see what name to display. -->
+                <% if c.donator_id != nil %>
+                    <p>author: <%= c.donator.username %></p>
+                    <br>
+                <% elsif c.organization_id != nil %>
+                    <p>author: <%= c.organization.username %></p>
+                    <br>
+                <!-- ending of conditional checking for author. -->
+                <% end %>
+            <% end %>
         </div>
+    <!-- else is to display a message if the current don is not the correct donator. -->
+    <% else %>
+        <h1>You do not have access to this page.</h1>    
+    <!-- end is conditional checking if current_don.id = the correct don.  -->
+    <% end %>
+<!-- elsif is to check if current_org signed in. -->
+<% elsif logged_in_org? %>
+    <% if current_org.id == @donandseek.organization_id %>
+    <!-- Section Below is for logged in org to say that they received the toy. -->
+        <% if @donandseek.seek.sent == false %>
+        <!-- First checking to see if the toy has been sent.  -->
+            <h3><%= @donandseek.donator.username %> has not sent the toy yet.</h3>
+        <!-- Checking to see if the toy has been sent but the organization has not accepted yet. -->
+        <% elsif @donandseek.seek.active == true && @donandseek.seek.sent == true %>
+            <h3><%= @donandseek.donator.username %> has sent the toy. Have you received it?</h3>
+            <%= form_for @received do |f| %>
+                <%= f.hidden_field(:seek_id, :value => @donandseek.seek.id) %>
+                <%= f.hidden_field(:organization_id, :value => @donandseek.organization.id) %>
+                <%= f.hidden_field(:donators_id, :value => @donandseek.donator_id) %>
+                <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id) %>
+                <%= f.submit :Received!, data: { confirm: 'Just making sure you have received the toy. This will archive your conversation.' } %>
+            <% end %>
+        <!-- Checking to make sure the toy is no longer active and has been sent and received. -->
+        <% elsif @donandseek.seek.active == false %>
+            <h3>Our record's show that you have received the toy. Feel free to keep chatting.</h3>
+        <!-- End below is for the if statement checking to see if the toy has been sent and/or recieved. -->
+        <% end %>    
+        <!-- Comments Create Section -->
+        <div class="commentaddition">
+            <%= content_tag :h3, "Chat about this toy." %>
+            <%= form_for @comment do |f| %>
+                <%= f.label :message %>
+                <%= f.text_field :body %>
+                <br>
+                <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id)%>
+                <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+                <%= f.submit :create %>
+            <!-- end of form_for @comment -->
+            <% end %>
+        </div>
+        <!-- Comments Show Section -->
+        <div class = "comments_section">
+            <% @donandseek.comments_don_and_seek.each do |c| %>
+                <p><%= c.body %></p>
+                <!-- Checking to see if the donator id or the org id is nil to see what name to display. -->
+                <% if c.donator_id != nil %>
+                    <p>author: <%= c.donator.username %></p>
+                    <br>
+                <% elsif c.organization_id != nil %>
+                    <p>author: <%= c.organization.username %></p>
+                    <br>
+                <!-- ending of conditional checking for author. -->
+                <% end %>
+            <!-- end is for comments show. -->
+            <% end %>
+        </div>
+    <!-- Else is if current_org is logged in but incorrect org. -->
+    <% else %>
+        <h1>You do not have access to this page.</h1>
+    <% end %>
+<!-- else for if they are not logged_in at all as either don or org -->
+<% else %>
+<h1>Please sign up or sign in.</h1>
+<% end %>

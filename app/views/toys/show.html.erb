@@ -25,8 +25,9 @@
 <% end %>
 <% end %>
 
-<%= form_for(@seek) do |f| %>
-  <% if logged_in_org? %>
+ <% if logged_in_org? %>
+
+<%= form_for [@seek] do |f| %>
   <div class="attending">
     <h3> Do you want this toy?</h3>
       <%= f.hidden_field(:organization_id, :value => current_org.id) %>
