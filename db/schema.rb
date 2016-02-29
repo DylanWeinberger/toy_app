@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160228203147) do
+ActiveRecord::Schema.define(version: 20160229153730) do
 
   create_table "comments_don_and_seeks", force: :cascade do |t|
     t.integer  "donator_id"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160228203147) do
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
     t.boolean  "active"
+    t.boolean  "sent"
   end
 
   create_table "org_and_toy_connects", force: :cascade do |t|
@@ -93,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160228203147) do
     t.datetime "updated_at",      null: false
     t.integer  "toy_id"
     t.boolean  "active"
+    t.boolean  "sent"
   end
 
   create_table "toys", force: :cascade do |t|
