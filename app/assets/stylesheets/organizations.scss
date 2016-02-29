@@ -1,3 +1,16 @@
 // Place all the styles related to the Organizations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.profile_headline {
+	position: relative;
+	text-align: center;
+}
+
+.profile_contact {
+	position: relative;
+	padding-left: 1%;
+}
+
+.profile_orgseek {
+	display: flex;
+}

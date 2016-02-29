@@ -9,4 +9,5 @@ class Organization < ActiveRecord::Base
 	has_many :don_and_seek_connects
 	has_many :comments_don_and_seeks
 	has_many :received_toys
+	has_one :org_profile
 end

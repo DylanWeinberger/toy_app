@@ -1,0 +1,66 @@
+<h1>Your conversations</h1>
+<!-- Display Organization's Active Conversations -->
+<% if logged_in_org? %>
+	<h2>Current Conversations</h2>
+		<% @organdtoy.each do |t| %>
+			<% if current_org.id == t.organization_id && t.active == true %>
+				<ul>
+					<li><%= link_to t.donors_toy.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+		<% @donandseek.each do |t| %>
+			<% if current_org.id == t.organization_id && t.active == true %>
+				<ul>
+					<li><%= link_to t.seek.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+	<h2>Archived Conversation</h2>
+		<% @organdtoy.each do |t| %>
+			<% if current_org.id == t.organization_id && t.active == false %>
+				<ul>
+					<li><%= link_to t.donors_toy.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>	
+		<% @donandseek.each do |t| %>
+			<% if current_org.id == t.organization_id && t.active == false %>
+				<ul>
+					<li><%= link_to t.seek.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+<% end %>
+<% if logged_in_don? %>
+	<h2>Current Conversations</h2>
+		<% @organdtoy.each do |t| %>
+			<% if current_don.id == t.donator_id && t.active == true %>
+				<ul>
+					<li><%= link_to t.donors_toy.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+		<% @donandseek.each do |t| %>
+			<% if current_don.id == t.donator_id && t.active == true %>
+				<ul>
+					<li><%= link_to t.seek.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+	<h2>Archived Conversation</h2>
+		<% @organdtoy.each do |t| %>
+			<% if current_don.id == t.donator_id && t.active == false %>
+				<ul>
+					<li><%= link_to t.donors_toy.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>	
+		<% @donandseek.each do |t| %>
+			<% if current_don.id == t.donator_id && t.active == false %>
+				<ul>
+					<li><%= link_to t.seek.toy.name, t %></li>
+				</ul>
+			<% end %>
+		<% end %>
+<% end %>

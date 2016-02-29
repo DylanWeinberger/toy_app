@@ -1,5 +1,9 @@
 class OrgAndToyConnectsController < ApplicationController
 
+	def index
+		@organdtoy = OrgAndToyConnect.all
+		@donandseek = DonAndSeekConnect.all
+	end
 	def new
 		@organdtoy = OrgAndToyConnect.new
 	end

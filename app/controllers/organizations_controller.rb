@@ -29,6 +29,9 @@ class OrganizationsController < ApplicationController
     redirect_to root_path
   end
 
+  def seeks
+  end
+
   private
   def org_params
     params.require(:organization).permit(:username, :email, :password, :address)
