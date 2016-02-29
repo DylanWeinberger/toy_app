@@ -8,20 +8,22 @@
 <% else %>
   <h3>These are the toys that we are looking for!</h3>
   <% @org.seeks.each do |t| %>
-    <%= t.toy.name %>
-    <%= image_tag t.toy.image.url(:thumb) %>
-      <%= form_for(@donandseek) do |f| %>
-        <% if logged_in_don? %>
-        <h3> Do you have this toy? Want to Donate?</h3>
-          <%= f.hidden_field(:donator_id, :value => current_don.id) %>
-          <%= f.hidden_field(:seek_id, :value => t.id)%>
-          <%= f.hidden_field(:organization_id, :value => @org.id)%>
-          <%= f.hidden_field(:active, :value => true) %>
-        <div>
-          <%= f.submit "start a connection!", :class => "RSVP_button" %>
-        </div>
+    <% if t.sent == false %>
+      <%= t.toy.name %>
+      <%= image_tag t.toy.image.url(:thumb) %>
+        <%= form_for(@donandseek) do |f| %>
+          <% if logged_in_don? %>
+          <h3> Do you have this toy? Want to Donate?</h3>
+            <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+            <%= f.hidden_field(:seek_id, :value => t.id)%>
+            <%= f.hidden_field(:organization_id, :value => @org.id)%>
+            <%= f.hidden_field(:active, :value => true) %>
+          <div>
+            <%= f.submit "start a connection!", :class => "RSVP_button" %>
+          </div>
+          <% end %>
         <% end %>
-      <% end %>
+      <% end %>  
   <% end %>
 <% end %>
 <!-- Conversation Section -->

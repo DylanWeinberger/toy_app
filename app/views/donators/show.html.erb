@@ -8,6 +8,7 @@
   <% else %>
     <h3>These are the toys I have available for donation!</h3>
       <% @don.donors_toys.each do |t| %>
+        <% if t.sent == false %>
         <!-- section to check if toy id is the same. -->
         <%= image_tag t.toy.image.url(:thumb) %>
           <%= form_for(@organdtoy) do |f| %>
@@ -24,6 +25,7 @@
                 </div>
             <% end %>
           <% end %>
+        <% end %>  
       <% end %>
     <% end %>  
     <!-- Continue Org Conversation -->
