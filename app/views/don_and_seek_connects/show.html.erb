@@ -2,7 +2,7 @@
         <!-- Received Toy Section -->
         <!-- Conditionals to show button for donor to send toy. -->
     <% if logged_in_don? && @donandseek.seek.sent == false %>
-        <h1>Testing</h1>
+        <h4>Have you sent this item?</h4>
         <%= form_for @donandseek.seek do |f| %>
             <%= f.hidden_field(:sent, :value => true) %>
             <%= f.submit %>
@@ -19,8 +19,6 @@
                 <%= f.submit :create, data: { confirm: 'Are you sure? This will close your convseration.' } %>
             <% end %>
         <% end %> 
-    <% else %>
-        <h3>It looks like you received this toy!</h3>
     <% end %>    
         <!-- Comments Create Section -->
         <div class="commentaddition">

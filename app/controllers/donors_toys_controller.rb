@@ -21,13 +21,20 @@ class DonorsToysController < ApplicationController
 	end
 
 	def update
-		
-	end
+		@donorstoy = DonorsToy.find(params[:id])
+		if @donorstoy.update(donors_toy_params)
+			flash[:notice] = "Your Toy has been marked as sent."
+			redirect_to :back
+		else
+			flash[:notice] = "something went wrong please try again."
+			redirect_to :back
+		end	
+	end	
 
 	private
 
 	def donors_toy_params
-		params.require(:donors_toy).permit(:donator_id, :toy_id, :reason_for_donation, :active)
+		params.require(:donors_toy).permit(:donator_id, :toy_id, :reason_for_donation, :active, :sent)
 	end
 
 
