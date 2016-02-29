@@ -1,6 +1,14 @@
 <h1>Discussion regarding <%=  @organdtoy.donors_toy.toy.name  %> , between <%= @organdtoy.organization.username %>, and <%= @organdtoy.donors_toy.donator.username  %></h1>
 <!-- Received toy section -->
-    <% if @organdtoy.donors_toy.active == true %>
+<!-- Conditionals to show button for donor to send toy. -->
+    <% if logged_in_don? && @organdtoy.donors_toy.sent == false %>
+        <h4>Have you sent this Toy?</h4>
+        <%= form_for @organdtoy.donors_toy do |f| %>
+            <%= f.hidden_field(:sent, :value => true) %>
+            <%= f.submit %>
+        <% end %>
+    <% end %>
+    <% if @organdtoy.donors_toy.active == true && @organdtoy.donors_toy.sent == true %>
         <% if logged_in_org? %>
             <h1>Have you received this toy?</h1>
             <%= form_for @received do |f| %>
@@ -12,8 +20,8 @@
                 <%= f.submit :create, data: { confirm: 'Are you sure? This will close your conversation.' } %>
             <% end %>
         <% end %>
-    <% else %>
-        <h3>It looks like you received this toy!</h3>
+        <!-- More Conditionals regarding whether they are waiting to have toy sent or they have already received toy. -->
+    
     <% end %>        
     <!-- Comments Create Section -->
     <div class="commentaddition">
