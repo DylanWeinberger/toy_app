@@ -33,7 +33,7 @@
       <div class = "seek_item_box">
         <%= link_to t.toy.name, t, :class => "link_to_toy_show" %>
         <%= link_to(image_tag(t.toy.image.url(:thumb)), t, :class => "link_to_img") %>
-      </div>   
+         
       <!-- Form below is for a donator to create a don and seek connection -->
       <% if logged_in_don? %>
         <%= form_for(@donandseek) do |f| %>
@@ -47,6 +47,7 @@
       <!-- end is for the logged_in_don? -->
       <% end %>
       <!-- end for the conditional about if the toy was sent. -->
+      </div>
     <% end %>
     <!-- end is for the listing of all the seektoys. -->
   <% end %>

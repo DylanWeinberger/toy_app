@@ -1,6 +1,8 @@
 class ToysController < ApplicationController
 	def index
 		@toys = Toy.all
+		@donorstoy = DonorsToy.new
+		@seek = Seek.new
 	end
 
 	def new
@@ -27,14 +29,8 @@ class ToysController < ApplicationController
 	def create
 		@toy = Toy.new(toy_params)
 		if @toy.save
-			if logged_in_don?
-				@current_don.donors_toys.push @toy
-				flash[:notice] = "Your Toy Was Created"
-				redirect_to @toy
-			else
-				flash[:notice] = "Your Toy Was Created"
-				redirect_to @toy
-			end	
+			flash[:notice] = "Your Toy Was Created"
+			redirect_to @toy
 		else
 			flash[:notice] = "there was a problem creating your toy."
 			redirect_to :back
@@ -43,7 +39,7 @@ class ToysController < ApplicationController
 
 	def show
 		@toy = Toy.find(params[:id])
-		@donors_toy = DonorsToy.new
+		@donorstoy = DonorsToy.new
 		@seek = Seek.new
 	end
 
@@ -56,6 +52,6 @@ class ToysController < ApplicationController
 
 	private
 	def toy_params
-  		params.require(:toy).permit(:name, :image, :donator_id, :donated?, :organization_id)
+  		params.require(:toy).permit(:name, :image, :donator_id, :donated?, :organization_id, :description, :category, :age_range)
 	end
 end

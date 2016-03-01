@@ -7,6 +7,11 @@ class DonorsToysController < ApplicationController
 		@donors_toy = DonorsToy.new	
 	end
 
+	def show
+		@donorstoy = DonorsToy.find(params[:id])
+		@organdtoy = OrgAndToyConnect.new
+	end
+
 	def create
 		@donors_toy = DonorsToy.new(donors_toy_params)
 		@donors_toy.donator_id = current_don.id 

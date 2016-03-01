@@ -15,7 +15,8 @@
       <% @don.donors_toys.each do |t| %>
         <% if t.sent == false %>
         <!-- section to check if toy id is the same. -->
-        <%= image_tag t.toy.image.url(:thumb) %>
+        <%= link_to t.toy.name, t, method: :get, :class => "link_to_toy_show" %>
+        <%= link_to(image_tag(t.toy.image.url(:thumb)), t, method: :get, :class => "link_to_img") %>
           <%= form_for(@organdtoy) do |f| %>
             <% if logged_in_org? %>
               <h3> Do you want this toy?</h3>

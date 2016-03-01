@@ -1,42 +1,29 @@
-<h1>Toy Show Page</h1>
-<p>Toy Name: <%= @toy.name %> </p>
-<%= image_tag @toy.image.url(:medium) %>
-<br>
-<%= @toy.created_at %>
-<%= form_for(@donors_toy) do |f| %>
+<h1 class="headline"><%= @toy.name %></h1>
+<%= image_tag @toy.image.url(:medium), :class => "toy_img"%>
+<div class = "toy_info">
+  <h4>Category: <%= @toy.category %></h4>
+  <h4>Age Range: <%= @toy.age_range %></h4>
+  <h4>Description: <%= @toy.description %></h4>
+</div>
+<div class= "toy_donate_area">
   <% if logged_in_don? %>
-  <div class="attending">
     <h3> Do you have this toy? Want to Donate?</h3>
-
-    <div class="field">
-       <%= f.hidden_field(:donator_id, :value => current_don.id) %>
-    </div>
-    <div>
+    <%= form_for @donorstoy do |f| %>
+      <%= f.hidden_field(:donator_id, :value => current_don.id) %>
       <%= f.hidden_field(:toy_id, :value => @toy.id)%>
-    </div>
-    <div>
       <%= f.hidden_field(:active, :value => true) %>
-    </div>
       <%= f.hidden_field(:sent, :value => false) %>
-     <div>
       <%= f.submit "Donate!", :class => "RSVP_button" %>
-    </div>
-  </div>
-<% end %>
-<% end %>
-
- <% if logged_in_org? %>
-
-<%= form_for [@seek] do |f| %>
-  <div class="attending">
+    <% end %>
+  <% end %>
+</div>
+<% if logged_in_org? %>
+  <%= form_for @seek do |f| %>
     <h3> Do you want this toy?</h3>
       <%= f.hidden_field(:organization_id, :value => current_org.id) %>
       <%= f.hidden_field(:active, :value => true) %>
       <%= f.hidden_field(:toy_id, :value => @toy.id)%>
       <%= f.hidden_field(:sent, :value => false) %>
-     <div>
-      <%= f.submit "Request Toy!", :class => "RSVP_button" %>
-    </div>
-  </div>
-<% end %>
+      <%= f.submit "Request Toy!", :class => "request_button" %>
+  <% end %>
 <% end %>

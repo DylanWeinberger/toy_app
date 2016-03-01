@@ -2,8 +2,14 @@
 <%= form_for @toy do |f| %>
 <%= f.label :name %>
 <%= f.text_field :name %>
+<%= f.label :category %>
+<%= f.select :category, ["Arts and Crafts", "Action Figures", "Board Games", "Dolls", "Educational Toys", "Electronics", "Puzzles", "Sports", "Other"] %>
+<%= f.label :Age_range %>
+<%= f.select :age_range, ["All Ages", "Baby: 0-12 Months", "Toddler: 1-3 Years", "Preschool 3-5 Years", "Adolescent 5-9 Years", "Preteen 9-12 Years", "Teen 12-15 Years"] %>
 <%= f.label :image %>
 <%= f.file_field :image %>
+<%= f.label :description %>
+<%= f.text_area :description %>
 <%= f.submit :create %>
 <% end %>
 <% else %>

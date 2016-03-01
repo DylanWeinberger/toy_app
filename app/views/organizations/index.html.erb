@@ -1,5 +1,5 @@
 <h1>All Organizations Page</h1>
 <% @orgs.each do |org| %>
-<%= link_to org.username, org, :class => "link_to_buttons" %>
+<%= link_to org.username, org, method: :get, :class => "link_to_buttons" %>
 <%= org.address %>
 <% end %>
