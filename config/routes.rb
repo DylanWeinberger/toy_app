@@ -2,7 +2,7 @@ Rails.application.routes.draw do
 
 
  
-  resources :organizations 
+  resources :organizations
   resources :seeks
 
   resources :donators
