@@ -1,10 +1,15 @@
-<h1>Donators#show</h1>
-  <%= @don.username %>
-    <br>
-  <%= @don.email %>
+<h1 class="profile_headline"><%= @don.username %>'s Page</h1>
+<div class="profile_contact">
+  <%= image_tag @don.avatar.url(:medium), :class => "org_pic" %>
+  <h4 class="org_info">Email: <%= @don.email %></h4>
+  <h4 class="org_info"># of donations: <%= @don.received_toys.count %></h4>
+</div>
   <!-- Toy Listing Section -->
+<h4 id="seekers_show" class = "display_buttons">Show Available Toys</h4>
+<h4 id="seekers_hide" class="display_buttons">Hide Available Toys</h4>
+<div id="profile_orgseek">
   <% if @don.donors_toys.count == 0  %>
-    <h4>Start Adding available toys to your closet</h4>
+    <h4><%= link_to "Start Adding available toys to your closet", toys_path, :class => "display_buttons" %></h4>
   <% else %>
     <h3>These are the toys I have available for donation!</h3>
       <% @don.donors_toys.each do |t| %>
@@ -27,51 +32,65 @@
           <% end %>
         <% end %>  
       <% end %>
-    <% end %>  
+    <% end %>
+  </div>
+  <h4 id="received_show" class="display_buttons">Display Complete Donations</h4>
+  <h4 id="received_hide" class="display_buttons">Hide Complete Donations</h4> 
+  <div id = "profile_received"> 
+    <% if @don.received_toys.count == 0 %>
+      <h4>I have not made any donations</h4>
+    <% else %>
+    <h4>These are the toys I have donated</h4>  
+    <% @don.received_toys.each do |t| %>
+      <div class = "received_toy_box">
+        <% if t.donors_toy_id != nil %>
+          <%= t.donors_toy.toy.name %>
+          <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
+        <% end %>
+        <% if t.seek_id != nil %>
+          <%= t.seek.toy.name %>
+          <%= image_tag t.seek.toy.image.url(:thumb) %>
+        <% end %>
+      </div>  
+    <% end %>
+  <% end %>
+</div>  
+<h4 id = "show_convos" class="display_buttons">Show Messages</h4>
+<h4 id = "hide_convos" class="display_buttons">Hide Messages</h4>
+<div id ="conversation_box">     
     <!-- Continue Org Conversation -->
-    <h3>active conversations</h3>
+  <div class = "active_convos">  
+    <h3>Active Conversations</h3>
     <% if @don.org_and_toy_connects.count != 0 %>
       <h1>Continue a conversation</h1>
         <% @don.org_and_toy_connects.each do |t| %>
-          <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+          <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
         <% end %>
       <% end %>
     <% if @don.don_and_seek_connects.count != 0 %>
       <h1>Continue a conversation</h1>
       <% @don.don_and_seek_connects.each do |t| %>
-        <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
+        <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
       <% end %>
     <% end %>
+  </div>
+  <div class = "archived_convos">  
     <h3>Closed Conversations</h3>
     <% if @don.org_and_toy_connects.count != 0 %>
       <% @don.org_and_toy_connects.each do |t| %>
       <% if t.active == false %>
-        <%= link_to t.donors_toy.toy.name, t, :class => "link_to_buttons" %>
+        <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
        <% end %> 
     <% end %>
   <% end %>
   <% if @don.don_and_seek_connects.count != 0 %>
     <% @don.don_and_seek_connects.each do |t| %>
       <% if t.active == false %>
-        <%= link_to t.seek.toy.name, t, :class => "link_to_buttons" %>
+        <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
       <% end %>
     <% end %>
   <% end %>
-
-    
-      <% if @don.received_toys.count == 0 %>
-        <h4>No donations have been made.</h4>
-      <% else %>
-        <h1>These are the toys I have donated.</h1>
-        <% @don.received_toys.each do |t| %>
-        <% if t.donors_toy_id != nil %>
-            <%= t.donors_toy.toy.name %>
-            <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
-          <% end %>
-          <% if t.seek_id != nil %>
-            <%= t.seek.toy.name %>
-            <%= image_tag t.seek.toy.image.url(:thumb) %>
-          <% end %>
-      <% end %> 
-    <% end %>   
+</div>
+</div>  
+  
 

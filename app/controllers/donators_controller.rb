@@ -33,6 +33,6 @@ class DonatorsController < ApplicationController
   end
   private
   def don_params
-    params.require(:donator).permit(:username, :email, :password)
+    params.require(:donator).permit(:username, :email, :password, :avatar)
   end
 end
