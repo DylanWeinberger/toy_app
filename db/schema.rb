@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301192101) do
+ActiveRecord::Schema.define(version: 20160301194741) do
 
   create_table "comments_don_and_seeks", force: :cascade do |t|
     t.integer  "donator_id"
@@ -125,6 +125,9 @@ ActiveRecord::Schema.define(version: 20160301192101) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.integer  "donator_id"
+    t.string   "category"
+    t.string   "age_range"
+    t.string   "description"
   end
 
 end

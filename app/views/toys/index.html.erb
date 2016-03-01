@@ -4,6 +4,23 @@
 	<div class = "toy_index_box">
 		<%=link_to t.name, toy_path(t.id), method: :get, :class => "display_buttons" %>
 		<%= link_to(image_tag(t.image.url(:thumb)), t, :class => "toy_link_to_img") %>
-
+		<% if logged_in_don? %>
+    		<%= form_for @donorstoy do |f| %>
+      			<%= f.hidden_field(:donator_id, :value => current_don.id) %>
+      			<%= f.hidden_field(:toy_id, :value => t.id)%>
+      			<%= f.hidden_field(:active, :value => true) %>
+      			<%= f.hidden_field(:sent, :value => false) %>
+      			<%= f.submit "Donate!", :class => "RSVP_button" %>
+    		<% end %>
+  		<% end %>
+  		<% if logged_in_org? %>
+  			<%= form_for @seek do |f| %>
+	      		<%= f.hidden_field(:organization_id, :value => current_org.id) %>
+			     <%= f.hidden_field(:active, :value => true) %>
+			     <%= f.hidden_field(:toy_id, :value => t.id)%>
+			     <%= f.hidden_field(:sent, :value => false) %>
+			     <%= f.submit "Request Toy!", :class => "request_button" %>
+			<% end %>
+		<% end %>
 	</div>
 <% end %>

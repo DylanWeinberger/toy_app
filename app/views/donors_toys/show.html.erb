@@ -1,0 +1,19 @@
+<h1>Seek show Page</h1>
+<%= @donorstoy.toy.name %>
+<%= image_tag @donorstoy.toy.image.url(:thumb) %>
+<%= link_to @donorstoy.donator.username, @donorstoy.donator, method: :get, :class => "link_to_buttons" %>
+<%= form_for(@organdtoy) do |f| %>
+  <% if logged_in_org? %>
+  <div class="attending">
+    <div class="field">
+       <%= f.hidden_field(:organization_id, :value => current_org.id) %>
+    </div>
+    <div>
+      <%= f.hidden_field(:donors_toy_id, :value => @donorstoy.id)%>
+    </div>
+     <div>
+      <%= f.submit "We Want This!", :class => "RSVP_button" %>
+    </div>
+  </div>
+<% end %>
+<% end %>

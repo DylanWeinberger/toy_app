@@ -13,9 +13,9 @@
   
     <nav>
       <ul>
-        <li><%= link_to "Toys", toys_path %></li>
-        <li><%= link_to "Donors", donators_path %></li>
-        <li><%= link_to "Organizations", organizations_path %></li>
+        <li><%= link_to "Toys", toys_path, method: :get %></li>
+        <li><%= link_to "Donors", donators_path, method: :get %></li>
+        <li><%= link_to "Organizations", organizations_path, method: :get %></li>
         <% if logged_in_don? %>
         <li><%= link_to "My Profile", donator_path(current_don.id), method: :get %></li>
         <% end %>
