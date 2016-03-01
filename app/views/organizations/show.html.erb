@@ -5,17 +5,15 @@
 
 <h1 class="profile_headline"><%= @org.username %>'s Page</h1>
 <div class="profile_contact">
-   <%= image_tag @org.avatar.url(:medium), :class => "org_pic" %>
-
+  <%= image_tag @org.avatar.url(:medium), :class => "org_pic" %>
   <h4 class="org_info">Email: <%= @org.email %></h4>
   <h4 class="org_info">Address: <%= @org.address %></h4>
-
 </div>
-  <!-- gmap div below. -->
-  <div style='width: 450px;'>
+<!-- gmap div below. -->
+<div style='width: 450px;'>
   <div id="map" style='width: 400px; height: 200px;'></div>
-  </div>
-  <script type="text/javascript">
+</div>
+<script type="text/javascript">
     handler = Gmaps.build('Google');
     handler.buildMap({ provider: {}, internal: {id: 'map'}}, function(){
     markers = handler.addMarkers(<%=raw @hash.to_json %>);
@@ -23,100 +21,96 @@
     handler.fitMapToBounds();
     handler.getMap().setZoom(12);
     });
-  </script>
-  <!-- Below is a list of the toys the organization is seeking in an overfow container. -->
-  <a href="#", id="seekers_show" class = "display_buttons">Show Toys we are seeking.</a>
-  <a href="#", id="seekers_hide" class="display_buttons">Hide Toys we are seeking.</a>
+</script>
+<!-- Below is a list of the toys the organization is seeking in an overfow container. -->
+<h4 id="seekers_show" class = "display_buttons">Show Toys we are seeking.</h4>
+<h4 id="seekers_hide" class="display_buttons">Hide Toys we are seeking.</h4>
 <div id="profile_orgseek">
   <h3>These are the toys we are looking for.</h3>
-    <% @org.seeks.each do |t| %>
-      <% if t.sent == false %>
-      <!-- Making sure that the toy they are seeking isn't already on its way. -->
-        <div class = "seek_item_box">
-          <%= link_to t.toy.name, t, :class => "link_to_toy_show" %>
-          <%= link_to(image_tag(t.toy.image.url(:thumb)), t, :class => "link_to_img") %>
-        </div>   
-          <!-- Form below is for a donator to create a don and seek connection -->
-           <% if logged_in_don? %>
-            <%= form_for(@donandseek) do |f| %>
-                <%= f.hidden_field(:donator_id, :value => current_don.id) %>
-                <%= f.hidden_field(:seek_id, :value => t.id)%>
-                <%= f.hidden_field(:organization_id, :value => @org.id)%>
-                <%= f.hidden_field(:active, :value => true) %>
-                <%= f.submit "Donate", :class => "donate_button" %>
-             
-            <!-- end is for the donandseek form -->
-            <% end %>
-          <!-- end is for the logged_in_don? -->
-          <% end %>
-
-      <!-- end for the conditional about if the toy was sent. -->
+  <% @org.seeks.each do |t| %>
+    <% if t.sent == false %>
+    <!-- Making sure that the toy they are seeking isn't already on its way. -->
+      <div class = "seek_item_box">
+        <%= link_to t.toy.name, t, :class => "link_to_toy_show" %>
+        <%= link_to(image_tag(t.toy.image.url(:thumb)), t, :class => "link_to_img") %>
+      </div>   
+      <!-- Form below is for a donator to create a don and seek connection -->
+      <% if logged_in_don? %>
+        <%= form_for(@donandseek) do |f| %>
+          <%= f.hidden_field(:donator_id, :value => current_don.id) %>
+          <%= f.hidden_field(:seek_id, :value => t.id)%>
+          <%= f.hidden_field(:organization_id, :value => @org.id)%>
+          <%= f.hidden_field(:active, :value => true) %>
+          <%= f.submit "Donate", :class => "donate_button" %>
+        <!-- end is for the donandseek form -->
+        <% end %>
+      <!-- end is for the logged_in_don? -->
       <% end %>
-    <!-- end is for the listing of all the seektoys. -->
+      <!-- end for the conditional about if the toy was sent. -->
     <% end %>
+    <!-- end is for the listing of all the seektoys. -->
+  <% end %>
 </div>  
   
-  <a href="#", id="received_show" class="display_buttons">Display Received Donations</a>
-  <a href="#", id="received_hide" class="display_buttons">Hide Received Donations</a>
-  <div id = "profile_received">
-  <!-- Received Toys Section -->
+<h4 id="received_show" class="display_buttons">Display Received Donations</h4>
+<h4 id="received_hide" class="display_buttons">Hide Received Donations</h4>
+<div id = "profile_received">
+<!-- Received Toys Section -->
   <% if @org.received_toys.count == 0 %>
     <h4>We have not received any donations</h4>
   <% else %>
     <h4>These are the toys we have received!</h4>  
-      <% @org.received_toys.each do |t| %>
-    <div class = "received_toy_box">
-      <% if t.donors_toy_id != nil %>
-        <%= t.donors_toy.toy.name %>
-        <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
-      <% end %>
-      <% if t.seek_id != nil %>
-        <%= t.seek.toy.name %>
-        <%= image_tag t.seek.toy.image.url(:thumb) %>
-      <% end %>
-    </div>  
+    <% @org.received_toys.each do |t| %>
+      <div class = "received_toy_box">
+        <% if t.donors_toy_id != nil %>
+          <%= t.donors_toy.toy.name %>
+          <%= image_tag t.donors_toy.toy.image.url(:thumb) %>
+        <% end %>
+        <% if t.seek_id != nil %>
+          <%= t.seek.toy.name %>
+          <%= image_tag t.seek.toy.image.url(:thumb) %>
+        <% end %>
+      </div>  
     <% end %>
   <% end %>
 </div>     
 <!-- Conversation Section -->
-
-  <a href="#" id = "show_convos" class="display_buttons">Show Messages</a>
-  <a href="#" id = "hide_convos" class="display_buttons">Hide Messages</a>
-  <div id = "conversation_box">
+<h4 id = "show_convos" class="display_buttons">Show Messages</h4>
+<h4 id = "hide_convos" class="display_buttons">Hide Messages</h4>
+<div id = "conversation_box">
+  <div class="active_convos">
     <% if @org.org_and_toy_connects.count != 0  %>
-    <div class="active_convos">
       <h1>Active conversations</h1>
-    <% @org.org_and_toy_connects.each do |t| %>
-      <% if t.active == true %>
-        <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
-      <% end %> 
+      <% @org.org_and_toy_connects.each do |t| %>
+        <% if t.active == true %>
+          <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
+        <% end %> 
+      <% end %>
     <% end %>
-  <% end %>
-  <% if @org.don_and_seek_connects.count != 0 %>
-    <% @org.don_and_seek_connects.each do |t| %>
-      <% if t.active == true %>
+    <% if @org.don_and_seek_connects.count != 0 %>
+      <% @org.don_and_seek_connects.each do |t| %>
+        <% if t.active == true %>
           <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+        <% end %>
       <% end %>
     <% end %>
-  <% end %>
   </div>
-<div class = "archived_convos">
-  <h1>Closed Conversations</h1>
-  <% if @org.org_and_toy_connects.count != 0 %>
-    
-    <% @org.org_and_toy_connects.each do |t| %>
-      <% if t.active == false %>
-        <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
-       <% end %> 
-    <% end %>
-  <% end %>
-  <% if @org.don_and_seek_connects.count != 0 %>
-    <% @org.don_and_seek_connects.each do |t| %>
-      <% if t.active == false %>
-        <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+  <div class = "archived_convos">
+    <h1>Closed Conversations</h1>
+    <% if @org.org_and_toy_connects.count != 0 %>
+      <% @org.org_and_toy_connects.each do |t| %>
+        <% if t.active == false %>
+          <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
+        <% end %> 
       <% end %>
     <% end %>
-  <% end %>
+    <% if @org.don_and_seek_connects.count != 0 %>
+      <% @org.don_and_seek_connects.each do |t| %>
+        <% if t.active == false %>
+          <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+        <% end %>
+      <% end %>
+    <% end %>
   </div>
 </div>  
  

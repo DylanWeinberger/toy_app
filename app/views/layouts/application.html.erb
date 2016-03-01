@@ -10,17 +10,17 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="container">
+  
     <nav>
       <ul>
         <li><%= link_to "Toys", toys_path %></li>
         <li><%= link_to "Donors", donators_path %></li>
         <li><%= link_to "Organizations", organizations_path %></li>
         <% if logged_in_don? %>
-        <li><%= link_to "My Profile", donator_path(current_don.id) %></li>
+        <li><%= link_to "My Profile", donator_path(current_don.id), method: :get %></li>
         <% end %>
         <% if logged_in_org? %>
-        <li><%= link_to "My Profile", organization_path(current_org.id) %></li>
+        <li><%= link_to "My Profile", organization_path(current_org.id), method: :get %></li>
         <% end %>
       </ul>
     </nav>
@@ -36,6 +36,7 @@
         <%= link_to("Sign Up", new_donator_path, method: :get, class: "login")%>
       <% end -%>
     </div>
+    <div id="container">
   	
     <% if flash[:notice] %>
     		<div><%= flash[:notice] %></div>

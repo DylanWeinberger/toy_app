@@ -1,5 +1,9 @@
-<h1>All Toys</h1>
+<h1 class= "headline">Toys Database</h1>
+<h3> <%= link_to "Don't see the toy your looking for? Click here to create it!", new_toy_path, :class => "toy_link_buttons" %></h3>
 <% @toys.each do |t| %>
-	<%=link_to t.name, toy_path(t.id), method: :get %>
-	
+	<div class = "toy_index_box">
+		<%=link_to t.name, toy_path(t.id), method: :get, :class => "display_buttons" %>
+		<%= link_to(image_tag(t.image.url(:thumb)), t, :class => "toy_link_to_img") %>
+
+	</div>
 <% end %>
