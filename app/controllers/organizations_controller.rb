@@ -21,6 +21,12 @@ class OrganizationsController < ApplicationController
   def show
     @org = Organization.find(params[:id])
     @donandseek = DonAndSeekConnect.new
+
+    # gmaps builder
+    @hash = Gmaps4rails.build_markers(@org) do |org, marker|
+      marker.lat org.latitude
+      marker.lng org.longitude
+    end
   end
 
   def destroy
@@ -34,6 +40,6 @@ class OrganizationsController < ApplicationController
 
   private
   def org_params
-    params.require(:organization).permit(:username, :email, :password, :address)
+    params.require(:organization).permit(:username, :email, :password, :address, :avatar)
   end
 end
