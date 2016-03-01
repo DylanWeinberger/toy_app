@@ -1,3 +1,83 @@
 // Place all the styles related to the DonAndSeekConnects controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.comments_section {
+	width: 100%;
+	margin-top: 45px;
+}
+.don_comment {
+	text-align: left;
+	width: 80%;
+	position: relative;
+	left: 2%;
+	background-color: rgba(244,234,213, .6);
+	border-radius: 18px;
+	padding: 5px;
+	margin: 8px;
+	color: black;
+	font-family: 'Gloria Hallelujah', cursive;
+
+}
+
+.org_comment {
+	text-align: right;
+	width: 80%;
+	position: relative;
+	left: 2%;
+	background-color: rgba(214,129,137, .6);
+	border-radius: 18px;
+	padding: 5px;
+	margin: 8px;
+	color: black;
+	font-family: 'Gloria Hallelujah', cursive;
+
+}
+
+.donandseek_toy_image {
+	border-radius: 12px;
+	position: absolute;
+	right: 1%;
+
+}
+
+.link_to_user {
+	font-family: 'Gloria Hallelujah', cursive;
+	text-decoration: none;
+	color: black;
+	transition: .8s;
+}
+
+.link_to_user:hover{
+	text-decoration:underline;
+	color: #E94E77;;
+}
+
+.commentaddition {
+	// text-align: center;
+	color: black;
+	font-family: 'Gloria Hallelujah', cursive;
+	position: relative;
+	margin-left: 10px;
+	display: block;
+
+}
+
+.receiving_section{
+	width: 300px;
+	word-wrap: break-word;
+	color: black;
+	font-family: 'Gloria Hallelujah', cursive;
+	position: relative;
+	left: 60%;
+	top: -60px;
+}
+
+.receiving_section_don{
+	width: 300px;
+	color: black;
+	font-family: 'Gloria Hallelujah', cursive;
+	position: relative;
+	left: 60%;
+	top: -120px;
+	word-wrap: break-word;
+}
