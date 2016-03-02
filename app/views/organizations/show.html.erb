@@ -75,45 +75,48 @@
     <% end %>
   <% end %>
 </div>     
+<!-- Making sure it is correct logged in org before displaying conversation section -->
+<% if logged_in_org? and current_org.id == @org.id %>
 <!-- Conversation Section -->
-<h4 id = "show_convos" class="display_buttons">Show Messages</h4>
-<h4 id = "hide_convos" class="display_buttons">Hide Messages</h4>
-<div id = "conversation_box">
-  <div class="active_convos">
-    <% if @org.org_and_toy_connects.count != 0  %>
-      <h1>Active conversations</h1>
-      <% @org.org_and_toy_connects.each do |t| %>
-        <% if t.active == true %>
-          <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
-        <% end %> 
-      <% end %>
-    <% end %>
-    <% if @org.don_and_seek_connects.count != 0 %>
-      <% @org.don_and_seek_connects.each do |t| %>
-        <% if t.active == true %>
-          <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+  <h4 id = "show_convos" class="display_buttons">Show Messages</h4>
+  <h4 id = "hide_convos" class="display_buttons">Hide Messages</h4>
+  <div id = "conversation_box">
+    <div class="active_convos">
+      <% if @org.org_and_toy_connects.count != 0  %>
+        <h1>Active conversations</h1>
+        <% @org.org_and_toy_connects.each do |t| %>
+          <% if t.active == true %>
+            <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
+          <% end %> 
         <% end %>
       <% end %>
-    <% end %>
-  </div>
-  <div class = "archived_convos">
-    <h1>Closed Conversations</h1>
-    <% if @org.org_and_toy_connects.count != 0 %>
-      <% @org.org_and_toy_connects.each do |t| %>
-        <% if t.active == false %>
-          <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
-        <% end %> 
-      <% end %>
-    <% end %>
-    <% if @org.don_and_seek_connects.count != 0 %>
-      <% @org.don_and_seek_connects.each do |t| %>
-        <% if t.active == false %>
-          <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+      <% if @org.don_and_seek_connects.count != 0 %>
+        <% @org.don_and_seek_connects.each do |t| %>
+          <% if t.active == true %>
+            <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+          <% end %>
         <% end %>
       <% end %>
-    <% end %>
-  </div>
-</div>  
+    </div>
+    <div class = "archived_convos">
+      <h1>Closed Conversations</h1>
+      <% if @org.org_and_toy_connects.count != 0 %>
+        <% @org.org_and_toy_connects.each do |t| %>
+          <% if t.active == false %>
+            <%= link_to t.donors_toy.toy.name, t, :class => "convo_link" %>
+          <% end %> 
+        <% end %>
+      <% end %>
+      <% if @org.don_and_seek_connects.count != 0 %>
+        <% @org.don_and_seek_connects.each do |t| %>
+          <% if t.active == false %>
+            <%= link_to t.seek.toy.name, t, :class => "convo_link" %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+  </div> 
+<% end %> 
  
 
 

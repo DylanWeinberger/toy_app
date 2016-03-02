@@ -59,8 +59,8 @@
 <!-- elsif is to check if current_org signed in. -->
 <% elsif logged_in_org? %>
     <% if current_org.id == @donandseek.organization_id %>
-    <%= image_tag @donandseek.seek.toy.image.url(:thumb), :class => "donandseek_toy_image" %>
-    <h1 class = "headline"><%=  @donandseek.seek.toy.name  %> Conversation with <%= @donandseek.donator.username %> </h1>
+        <%= image_tag @donandseek.seek.toy.image.url(:thumb), :class => "donandseek_toy_image" %>
+        <h1 class = "headline"><%=  @donandseek.seek.toy.name  %> Conversation with <%= @donandseek.donator.username %> </h1>
 
     <!-- Section Below is for logged in org to say that they received the toy. -->
     <!-- Comments Show Section -->
@@ -103,7 +103,7 @@
                 <%= form_for @received do |f| %>
                     <%= f.hidden_field(:seek_id, :value => @donandseek.seek.id) %>
                     <%= f.hidden_field(:organization_id, :value => @donandseek.organization.id) %>
-                    <%= f.hidden_field(:donators_id, :value => @donandseek.donator_id) %>
+                    <%= f.hidden_field(:donator_id, :value => @donandseek.donator_id) %>
                     <%= f.hidden_field(:don_and_seek_connect_id, :value => @donandseek.id) %>
                     <%= f.submit :Received!, data: { confirm: 'Just making sure you have received the toy. This will archive your conversation.' } %>
                 <% end %>

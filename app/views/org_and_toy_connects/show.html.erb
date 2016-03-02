@@ -1,47 +1,52 @@
-<h1>Discussion regarding <%=  @organdtoy.donors_toy.toy.name  %> , between <%= @organdtoy.organization.username %>, and <%= @organdtoy.donors_toy.donator.username  %></h1>
 <!-- Making sure correct Donator is logged in. Same done Below -->
 <% if logged_in_don? %>
     <% if current_don.id == @organdtoy.donator_id %>
-    <!-- Section Below is for the Donator to say they have sent the toy. -->
-        <% if @organdtoy.donors_toy.sent == false %>
-            <h4>Have you sent this Toy?</h4>
-            <%= form_for @organdtoy.donors_toy do |f| %>
-                <%= f.hidden_field(:sent, :value => true) %>
-                <%= f.submit :Sent! %>
-            <!-- ending for form for sent toy.  -->
-            <% end %>
-        <% elsif @organdtoy.donors_toy.sent == true && @organdtoy.active == true %>
-            <h4>You have sent the toy but they have not received it yet.</h4>
-        <% elsif @organdtoy.active == true  %>
-            <h4>The organization has received this toy! Thanks!</h4>        
-        <!-- ending for checking if sent is marked as false  -->
-        <% end %>
-        <!-- Comments Create Section -->
-        <div class="commentaddition">
-            <%= content_tag :h3, "Chat about this toy." %>
-            <%= form_for @comment do |f| %>
-                <%= f.label :message %>
-                <%= f.text_field :body %>
-                <br>
-                <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id)%>
-    			<%= f.hidden_field(:donator_id, :value => current_don.id)%>
-                <%= f.submit :create %>
-            <!-- end of form_for @comment -->
-            <% end %>
-        </div>
+        <%= image_tag @organdtoy.donors_toy.toy.image.url(:thumb), :class => "donandseek_toy_image" %>
+        <h1 class = "headline"><%=  @organdtoy.donors_toy.toy.name  %> Conversation with <%= @organdtoy.organization.username %></h1>
         <!-- Comments Show Section -->
         <div class = "comments_section">
             <% @organdtoy.comments_org_donor_toys.each do |c| %>
-            	<p><%= c.body %></p>
-                <!-- Checking to see if the donator id or the org id is nil to see what name to display. -->
+                <!-- Checking to see if the donator id or the is nil to see what name to display and to give a different class. -->
                 <% if c.donator_id != nil %>
-                    <p>author: <%= c.donator.username %></p>
-                    <br>
+                    <div class="don_comment">
+                        <p><%= c.body %></p>
+                        <p>- <%= link_to c.donator.username, c.donator, method: :get, :class => "link_to_user" %></p>
+                    </div>    
                 <% elsif c.organization_id != nil %>
-                    <p>author: <%= c.organization.username %></p>
-                    <br>
+                    <div class="org_comment">
+                        <p><%= c.body %></p>
+                        <p>- <%=link_to c.organization.username, c.organization, method: :get, :class => "link_to_user" %></p>
+                    </div>
                 <!-- ending of conditional checking for author. -->
                 <% end %>
+            <% end %>
+        </div>
+        <!-- Comments Create Section -->
+        <div class="commentaddition">
+            <h3>Add a message</h3>
+            <%= form_for @comment do |f| %>
+                <%= f.text_area :body %>
+                <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id)%>
+                <%= f.hidden_field(:donator_id, :value => current_don.id)%>
+                <br>
+                <%= f.submit :submit %>
+            <!-- end of form_for @comment -->
+            <% end %>
+        </div>
+        <!-- Section Below is for the Donator to say they have sent the toy. -->
+        <div class="receiving_section_don">
+            <% if @organdtoy.donors_toy.sent == false %>
+                <h3>Have you sent this Toy?</h3>
+                <%= form_for @organdtoy.donors_toy do |f| %>
+                    <%= f.hidden_field(:sent, :value => true) %>
+                    <%= f.submit :Sent! %>
+                <!-- ending for form for sent toy.  -->
+                <% end %>
+            <% elsif @organdtoy.donors_toy.sent == true && @organdtoy.active == true %>
+                <h3>You have sent the toy but they have not received it yet.</h3>
+            <% elsif @organdtoy.active == true  %>
+                <h3>The organization has received this toy! Thanks!</h3>        
+            <!-- ending for checking if sent is marked as false  -->
             <% end %>
         </div>
     <!-- else is to display a message if the current don is not the correct donator. -->
@@ -52,54 +57,59 @@
 <!-- elsif is to check if current_org signed in. -->
 <% elsif logged_in_org? %>
     <% if current_org.id == @organdtoy.organization_id %>
-    <!-- Section Below is for logged in org to say that they received the toy. -->
-        <% if @organdtoy.donors_toy.sent == false %>
-        <!-- First checking to see if the toy has been sent.  -->
-            <h3><%= @organdtoy.donator.username %> has not sent the toy yet.</h3>
-        <!-- Checking to see if the toy has been sent but the organization has not accepted yet. -->
-        <% elsif @organdtoy.donors_toy.active == true && @organdtoy.donors_toy.sent == true %>
-            <h3><%= @organdtoy.donator.username %> has sent the toy. Have you received it?</h3>
-            <%= form_for @received do |f| %>
-                <%= f.hidden_field(:donors_toy_id, :value => @organdtoy.donors_toy.id) %>
-                <%= f.hidden_field(:organization_id, :value => @organdtoy.organization.id) %>
-                <%= f.hidden_field(:donators_id, :value => @organdtoy.donors_toy.donator_id) %>
-                <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id) %>
-                <%= f.submit :Received!, data: { confirm: 'Just making sure you have received the toy. This will archive your conversation.' } %>
-            <% end %>
-        <!-- Checking to make sure the toy is no longer active and has been sent and received. -->
-        <% elsif @organdtoy.donors_toy.active == false %>
-            <h3>Our record's show that you have received the toy. Feel free to keep chatting.</h3>
-        <!-- End below is for the if statement checking to see if the toy has been sent and/or recieved. -->
-        <% end %>    
-        <!-- Comments Create Section -->
-        <div class="commentaddition">
-            <%= content_tag :h3, "Chat about this toy." %>
-            <%= form_for @comment do |f| %>
-                <%= f.label :message %>
-                <%= f.text_field :body %>
-                <br>
-                <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id)%>
-                <%= f.hidden_field(:organization_id, :value => current_org.id)%>
-                <%= f.submit :create %>
-            <!-- end of form_for @comment -->
-            <% end %>
-        </div>
+        <%= image_tag @organdtoy.donors_toy.toy.image.url(:thumb), :class => "donandseek_toy_image" %>
+        <h1 class = "headline"><%=  @organdtoy.donors_toy.toy.name  %> Conversation with <%= @organdtoy.donator.username %> </h1>
+         <!-- Section Below is for logged in org to say that they received the toy. -->
         <!-- Comments Show Section -->
         <div class = "comments_section">
             <% @organdtoy.comments_org_donor_toys.each do |c| %>
-                <p><%= c.body %></p>
-                <!-- Checking to see if the donator id or the org id is nil to see what name to display. -->
+                <!-- Checking to see if the donator id or the is nil to see what name to display and to give a different class. -->
                 <% if c.donator_id != nil %>
-                    <p>author: <%= c.donator.username %></p>
-                    <br>
+                    <div class="don_comment">
+                        <p><%= c.body %></p>
+                        <p>- <%= link_to c.donator.username, c.donator, method: :get, :class => "link_to_user" %></p>
+                    </div>    
                 <% elsif c.organization_id != nil %>
-                    <p>author: <%= c.organization.username %></p>
-                    <br>
+                    <div class="org_comment">
+                        <p><%= c.body %></p>
+                        <p>- <%= link_to c.organization.username, c.organization, method: :get, :class => "link_to_user" %></p>
+                    </div>
                 <!-- ending of conditional checking for author. -->
                 <% end %>
-            <!-- end is for comments show. -->
             <% end %>
         </div>
+        <!-- Comments Create Section -->
+        <div class="commentaddition">
+            <h3>Add a message.</h3>
+            <%= form_for @comment do |f| %>
+                <%= f.text_area :body %>
+                <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id)%>
+                <%= f.hidden_field(:organization_id, :value => current_org.id)%>
+                <br>
+                <%= f.submit :Submit %>
+            <!-- end of form_for @comment -->
+            <% end %>
+        </div>
+        <div class="receiving_section">
+            <% if @organdtoy.donors_toy.sent == false %>
+            <!-- First checking to see if the toy has been sent.  -->
+                <h3><%= @organdtoy.donator.username %> has not sent the toy yet.</h3>
+            <!-- Checking to see if the toy has been sent but the organization has not accepted yet. -->
+            <% elsif @organdtoy.donors_toy.active == true && @organdtoy.donors_toy.sent == true %>
+                <h3><%= @organdtoy.donator.username %> has sent the toy. Have you received it?</h3>
+                <%= form_for @received do |f| %>
+                    <%= f.hidden_field(:donors_toy_id, :value => @organdtoy.donors_toy.id) %>
+                    <%= f.hidden_field(:organization_id, :value => @organdtoy.organization.id) %>
+                    <%= f.hidden_field(:donator_id, :value => @organdtoy.donator_id) %>
+                    <%= f.hidden_field(:org_and_toy_connect_id, :value => @organdtoy.id) %>
+                    <%= f.submit :Received!, data: { confirm: 'Just making sure you have received the toy. This will archive your conversation.' } %>
+                <% end %>
+            <!-- Checking to make sure the toy is no longer active and has been sent and received. -->
+            <% elsif @organdtoy.donors_toy.active == false %>
+                <h3>Our record's show that you have received the toy. Feel free to keep chatting.</h3>
+            <!-- End below is for the if statement checking to see if the toy has been sent and/or recieved. -->
+            <% end %>  
+        </div>  
     <!-- Else is if current_org is logged in but incorrect org. -->
     <% else %>
         <h1>You do not have access to this page.</h1>
