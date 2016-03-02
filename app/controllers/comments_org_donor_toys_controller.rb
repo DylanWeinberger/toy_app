@@ -7,7 +7,13 @@ class CommentsOrgDonorToysController < ApplicationController
 		@comment = CommentsOrgDonorToy.new(comment_params)
 			if @comment.save
 				flash[:notice] = "Your comment has been saved."
-				redirect_to :back
+				if @comment.donator_id != nil
+					UserNotifier.send_comment_email(@comment.org_and_toy_connect.organization, @comment).deliver
+					redirect_to :back
+				elsif @comment.organization_id != nil
+					UserNotifier.send_comment_email(@comment.org_and_toy_connect.donator, @comment).deliver
+					redirect_to :back	
+				end	
 			else
 				flash[:notice] = "There was a problem creating your comment."
 				redirect_to :back

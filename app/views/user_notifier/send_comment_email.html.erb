@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Hi there <%= @user.username %>!</h1>
+    <h3>You have received a new message regarding a toy you were discussing.</h3>
+    <p><%= @comment.body %></p>
+    <% if @comment.donator_id != nil %>
+    	<p>from: <%= @comment.donator.username %> </p>
+    <% else %>
+    	<p>from: <%= @comment.organization.username%> </p>
+    <% end %>		
+  </body>
+</html>
